@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 // ─── DESIGN TOKENS ───
 const colors = {
@@ -21,8 +21,12 @@ const colors = {
   border: "rgba(255,255,255,0.06)",
 };
 
+const WA_LINK = "https://wa.me/34687136475?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio.%20%C2%BFPodemos%20hablar%3F";
+const WA_LINK_CTA = "https://wa.me/34687136475?text=Hola%2C%20quiero%20reservar%20una%20llamada%20para%20hablar%20sobre%20automatizaci%C3%B3n.";
+const WA_LINK_SERVICIOS = "https://wa.me/34687136475?text=Hola%2C%20quiero%20automatizar%20mi%20negocio.%20%C2%BFQu%C3%A9%20servicios%20ofrec%C3%A9is%3F";
+
 // ─── REUSABLE COMPONENTS ───
-function Section({ children, id, className = "" }) {
+function Section({ children, id, className = "" }: { children: React.ReactNode; id?: string; className?: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   return (
@@ -40,7 +44,7 @@ function Section({ children, id, className = "" }) {
   );
 }
 
-function Container({ children, style }) {
+function Container({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", ...style }}>
       {children}
@@ -48,7 +52,7 @@ function Container({ children, style }) {
   );
 }
 
-function Badge({ children }) {
+function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span
       style={{
@@ -60,8 +64,8 @@ function Badge({ children }) {
         fontSize: 13,
         fontWeight: 500,
         color: colors.accentLight,
-        background: `linear-gradient(135deg, rgba(108,92,231,0.12), rgba(162,155,254,0.08))`,
-        border: `1px solid rgba(108,92,231,0.2)`,
+        background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(162,155,254,0.08))",
+        border: "1px solid rgba(108,92,231,0.2)",
         letterSpacing: 0.3,
       }}
     >
@@ -70,7 +74,7 @@ function Badge({ children }) {
   );
 }
 
-function SectionTitle({ badge, title, subtitle }) {
+function SectionTitle({ badge, title, subtitle }: { badge?: string; title: string; subtitle?: string }) {
   return (
     <div style={{ textAlign: "center", marginBottom: 64, maxWidth: 700, margin: "0 auto 64px" }}>
       {badge && (
@@ -99,7 +103,7 @@ function SectionTitle({ badge, title, subtitle }) {
   );
 }
 
-function GlassCard({ children, style, hover = true }) {
+function GlassCard({ children, style, hover = true }: { children: React.ReactNode; style?: React.CSSProperties; hover?: boolean }) {
   const [hovered, setHovered] = useState(false);
   return (
     <motion.div
@@ -125,7 +129,7 @@ function GlassCard({ children, style, hover = true }) {
   );
 }
 
-function Button({ children, variant = "primary", style, onClick }) {
+function Button({ children, variant = "primary", style, onClick }: { children: React.ReactNode; variant?: string; style?: React.CSSProperties; onClick?: () => void }) {
   const [hovered, setHovered] = useState(false);
   const isPrimary = variant === "primary";
   return (
@@ -144,8 +148,8 @@ function Button({ children, variant = "primary", style, onClick }) {
             ? "linear-gradient(135deg, #7C6CF0, #6C5CE7)"
             : "linear-gradient(135deg, #6C5CE7, #5A4BD1)"
           : hovered
-            ? "rgba(255,255,255,0.06)"
-            : "transparent",
+          ? "rgba(255,255,255,0.06)"
+          : "transparent",
         color: isPrimary ? "#fff" : colors.text,
         fontSize: 15,
         fontWeight: 600,
@@ -165,9 +169,9 @@ function Button({ children, variant = "primary", style, onClick }) {
   );
 }
 
-// ─── ICONS (inline SVG) ───
-function Icon({ name, size = 24, color = colors.accentLight }) {
-  const icons = {
+// ─── ICONS ───
+function Icon({ name, size = 24, color = colors.accentLight }: { name: string; size?: number; color?: string }) {
+  const icons: Record<string, React.ReactNode> = {
     bot: (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="11" width="18" height="10" rx="2" />
@@ -294,7 +298,7 @@ function Icon({ name, size = 24, color = colors.accentLight }) {
       </svg>
     ),
   };
-  return icons[name] || null;
+  return <>{icons[name] || null}</>;
 }
 
 // ─── ANIMATED GRID BACKGROUND ───
@@ -329,7 +333,7 @@ function GridBackground() {
 }
 
 // ─── FLOATING ORB ───
-function Orb({ color, size, top, left, delay = 0 }) {
+function Orb({ color, size, top, left, delay = 0 }: { color: string; size: number; top: string; left: string; delay?: number }) {
   return (
     <motion.div
       animate={{ y: [0, -20, 0], x: [0, 10, 0], scale: [1, 1.05, 1] }}
@@ -376,7 +380,6 @@ function Navbar() {
         top: 0, left: 0, right: 0,
         zIndex: 100,
         padding: "0 24px",
-        transition: "all 0.3s",
       }}
     >
       <div
@@ -422,13 +425,13 @@ function Navbar() {
                 fontWeight: 500,
                 transition: "color 0.2s",
               }}
-              onMouseEnter={(e) => (e.target.style.color = colors.text)}
-              onMouseLeave={(e) => (e.target.style.color = colors.textMuted)}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.text)}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
             >
               {l.label}
             </a>
           ))}
-          <a href="https://wa.me/34687136475?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
             <Button style={{ padding: "10px 22px", fontSize: 14 }}>
               Reserva una llamada
             </Button>
@@ -483,9 +486,11 @@ function Navbar() {
                 {l.label}
               </a>
             ))}
-            <Button style={{ width: "100%", justifyContent: "center", marginTop: 8 }}>
-              Reserva una llamada
-            </Button>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+              <Button style={{ width: "100%", justifyContent: "center", marginTop: 8 }}>
+                Reserva una llamada
+              </Button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -552,7 +557,7 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}
         >
-          <a href="https://wa.me/34687136475?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
             <Button>
               Reserva una llamada gratuita <Icon name="arrow" size={16} color="#fff" />
             </Button>
@@ -562,69 +567,68 @@ function Hero() {
               Ver servicios
             </Button>
           </a>
+        </motion.div>
 
-          {/* Hero Visual - Animated Dashboard Preview */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.1 }}
-            style={{ marginTop: 80, position: "relative" }}
+        {/* Hero Visual - Animated Dashboard Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.1 }}
+          style={{ marginTop: 80, position: "relative" }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: -2,
+              borderRadius: 24,
+              background: `linear-gradient(135deg, ${colors.accent}, ${colors.green}, ${colors.accent})`,
+              opacity: 0.15,
+              filter: "blur(1px)",
+            }}
+          />
+          <div
+            style={{
+              position: "relative",
+              borderRadius: 20,
+              border: `1px solid ${colors.glassBorder}`,
+              background: "rgba(12,13,16,0.8)",
+              backdropFilter: "blur(20px)",
+              padding: "24px 32px 32px",
+              overflow: "hidden",
+            }}
           >
-            <div
-              style={{
-                position: "absolute",
-                inset: -2,
-                borderRadius: 24,
-                background: `linear-gradient(135deg, ${colors.accent}, ${colors.green}, ${colors.accent})`,
-                opacity: 0.15,
-                filter: "blur(1px)",
-              }}
-            />
-            <div
-              style={{
-                position: "relative",
-                borderRadius: 20,
-                border: `1px solid ${colors.glassBorder}`,
-                background: "rgba(12,13,16,0.8)",
-                backdropFilter: "blur(20px)",
-                padding: "24px 32px 32px",
-                overflow: "hidden",
-              }}
-            >
-              {/* Window Controls */}
-              <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
-                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F57" }} />
-                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
-                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
-              </div>
-              {/* Fake Dashboard */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
-                {[
-                  { label: "Leads capturados", value: "2,847", change: "+34%", color: colors.green },
-                  { label: "Tareas automatizadas", value: "12,493", change: "+89%", color: colors.accentLight },
-                  { label: "Horas ahorradas", value: "1,240h", change: "+67%", color: "#F5A623" },
-                  { label: "Ratio conversión", value: "18.4%", change: "+12%", color: "#E74C8B" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1.4 + i * 0.15 }}
-                    style={{
-                      padding: 20,
-                      borderRadius: 12,
-                      background: "rgba(255,255,255,0.03)",
-                      border: `1px solid ${colors.glassBorder}`,
-                    }}
-                  >
-                    <div style={{ fontSize: 12, color: colors.textMuted, marginBottom: 8 }}>{stat.label}</div>
-                    <div style={{ fontSize: 28, fontWeight: 700, color: colors.text, letterSpacing: "-0.02em" }}>{stat.value}</div>
-                    <div style={{ fontSize: 13, color: stat.color, marginTop: 4, fontWeight: 600 }}>{stat.change}</div>
-                  </motion.div>
-                ))}
-              </div>
+            <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F57" }} />
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
             </div>
-          </motion.div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
+              {[
+                { label: "Leads capturados", value: "2,847", change: "+34%", color: colors.green },
+                { label: "Tareas automatizadas", value: "12,493", change: "+89%", color: colors.accentLight },
+                { label: "Horas ahorradas", value: "1,240h", change: "+67%", color: "#F5A623" },
+                { label: "Ratio conversión", value: "18.4%", change: "+12%", color: "#E74C8B" },
+              ].map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.4 + i * 0.15 }}
+                  style={{
+                    padding: 20,
+                    borderRadius: 12,
+                    background: "rgba(255,255,255,0.03)",
+                    border: `1px solid ${colors.glassBorder}`,
+                  }}
+                >
+                  <div style={{ fontSize: 12, color: colors.textMuted, marginBottom: 8 }}>{stat.label}</div>
+                  <div style={{ fontSize: 28, fontWeight: 700, color: colors.text, letterSpacing: "-0.02em" }}>{stat.value}</div>
+                  <div style={{ fontSize: 13, color: stat.color, marginTop: 4, fontWeight: 600 }}>{stat.change}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </Container>
     </section>
   );
@@ -714,7 +718,7 @@ function Services() {
                   style={{
                     width: 44, height: 44,
                     borderRadius: 12,
-                    background: `linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,210,160,0.08))`,
+                    background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,210,160,0.08))",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     marginBottom: 16,
                   }}
@@ -765,7 +769,7 @@ function Process() {
           title="De la idea al sistema en semanas, no meses"
           subtitle="Un proceso probado que transforma tu negocio sin fricciones."
         />
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24, position: "relative" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
           {steps.map((s, i) => (
             <motion.div
               key={i}
@@ -790,11 +794,6 @@ function Process() {
                 </div>
                 <h3 style={{ fontSize: 20, fontWeight: 700, color: colors.text, marginBottom: 12 }}>{s.title}</h3>
                 <p style={{ fontSize: 14, color: colors.textMuted, lineHeight: 1.65 }}>{s.desc}</p>
-                {i < 3 && (
-                  <div className="process-arrow" style={{ display: "none", position: "absolute", right: -16, top: "50%", transform: "translateY(-50%)" }}>
-                    <Icon name="arrow" size={20} color={colors.textDim} />
-                  </div>
-                )}
               </GlassCard>
             </motion.div>
           ))}
@@ -837,7 +836,7 @@ function UseCases() {
                     width: 48, height: 48,
                     minWidth: 48,
                     borderRadius: 14,
-                    background: `linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,210,160,0.1))`,
+                    background: "linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,210,160,0.1))",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}
                 >
@@ -891,7 +890,7 @@ function Benefits() {
                     width: 56, height: 56,
                     minWidth: 56,
                     borderRadius: 16,
-                    background: `linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,210,160,0.06))`,
+                    background: "linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,210,160,0.06))",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}
                 >
@@ -926,7 +925,7 @@ function About() {
                 aspectRatio: "1",
                 maxWidth: 400,
                 borderRadius: 24,
-                background: `linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,210,160,0.1))`,
+                background: "linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,210,160,0.1))",
                 border: `1px solid ${colors.glassBorder}`,
                 display: "flex",
                 alignItems: "center",
@@ -1030,7 +1029,7 @@ function Testimonials() {
                   flexDirection: "column",
                   height: "100%",
                   background: i === 1
-                    ? `linear-gradient(135deg, rgba(108,92,231,0.06), rgba(0,210,160,0.04))`
+                    ? "linear-gradient(135deg, rgba(108,92,231,0.06), rgba(0,210,160,0.04))"
                     : colors.bgCard,
                 }}
               >
@@ -1040,7 +1039,7 @@ function Testimonials() {
                   ))}
                 </div>
                 <p style={{ fontSize: 15, color: colors.text, lineHeight: 1.7, flex: 1, fontStyle: "italic", opacity: 0.9 }}>
-                  "{t.text}"
+                  &ldquo;{t.text}&rdquo;
                 </p>
                 <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 12 }}>
                   <div
@@ -1082,12 +1081,11 @@ function FinalCTA() {
             textAlign: "center",
           }}
         >
-          {/* Background gradient */}
           <div
             style={{
               position: "absolute",
               inset: 0,
-              background: `linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,210,160,0.06), rgba(108,92,231,0.08))`,
+              background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,210,160,0.06), rgba(108,92,231,0.08))",
               border: `1px solid ${colors.glassBorder}`,
               borderRadius: 28,
             }}
@@ -1123,12 +1121,12 @@ function FinalCTA() {
               Reserva una llamada gratuita de 30 minutos. Analizaremos tu negocio y te mostraré exactamente cómo la automatización puede multiplicar tus resultados.
             </p>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="https://wa.me/34687136475?text=Hola%2C%20quiero%20reservar%20una%20llamada%20para%20hablar%20sobre%20automatizaci%C3%B3n." target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+              <a href={WA_LINK_CTA} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 <Button>
                   Reserva una llamada <Icon name="arrow" size={16} color="#fff" />
                 </Button>
               </a>
-              <a href="https://wa.me/34687136475?text=Hola%2C%20quiero%20automatizar%20mi%20negocio.%20%C2%BFQu%C3%A9%20servicios%20ofrec%C3%A9is%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+              <a href={WA_LINK_SERVICIOS} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 <Button variant="secondary">
                   Automatiza tu negocio
                 </Button>
@@ -1168,8 +1166,8 @@ function Footer() {
                 key={l}
                 href={`#${l.toLowerCase()}`}
                 style={{ color: colors.textDim, textDecoration: "none", fontSize: 13, transition: "color 0.2s" }}
-                onMouseEnter={(e) => (e.target.style.color = colors.textMuted)}
-                onMouseLeave={(e) => (e.target.style.color = colors.textDim)}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textDim)}
               >
                 {l}
               </a>
