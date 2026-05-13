@@ -1142,10 +1142,9 @@ function FinalCTA() {
 // ─── FOOTER ───
 function Footer() {
   return (
-    <footer style={{ padding: "48px 0 32px", borderTop: `1px solid ${colors.border}` }}>
+    <footer style={{ padding: "48px 0 32px", borderTop: "1px solid rgba(255,255,255,0.15)", marginTop: 40 }}>
       <Container>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, position: "relative", zIndex: 10 }}>
             <div
               style={{
                 width: 28, height: 28,
