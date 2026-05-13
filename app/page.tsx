@@ -1142,9 +1142,10 @@ function FinalCTA() {
 // ─── FOOTER ───
 function Footer() {
   return (
-    <footer style={{ padding: "48px 0 32px", borderTop: "1px solid rgba(255,255,255,0.15)", marginTop: 40 }}>
+    <footer style={{ padding: "60px 0 40px", borderTop: "1px solid rgba(255,255,255,0.1)", background: "rgba(0,0,0,0.3)", position: "relative", zIndex: 10 }}>
       <Container>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, position: "relative", zIndex: 10 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div
               style={{
                 width: 28, height: 28,
@@ -1155,34 +1156,34 @@ function Footer() {
             >
               <span style={{ color: "#fff", fontWeight: 800, fontSize: 12 }}>L</span>
             </div>
-            <span style={{ color: colors.textMuted, fontSize: 14 }}>
-              Lledó Automations
+            <span style={{ color: colors.text, fontSize: 15, fontWeight: 600 }}>
+              {"Lled\u00f3 Automations"}
             </span>
           </div>
-          <div style={{ display: "flex", gap: 24 }}>
+          <div style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
             {["Servicios", "Proceso", "Casos", "Contacto"].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}
-                style={{ color: colors.textDim, textDecoration: "none", fontSize: 13, transition: "color 0.2s" }}
-                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
-                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textDim)}
+                style={{ color: colors.textMuted, textDecoration: "none", fontSize: 13, transition: "color 0.2s" }}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.text)}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
               >
                 {l}
               </a>
             ))}
+            <a
+              href="/politica-de-privacidad"
+              style={{ color: colors.textMuted, textDecoration: "none", fontSize: 13, transition: "color 0.2s" }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.text)}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
+            >
+              {"Pol\u00edtica de privacidad"}
+            </a>
           </div>
           <span style={{ fontSize: 12, color: colors.textDim }}>
-            © 2026 Lledó Automations. Todos los derechos reservados.
+            {"\u00a9 2026 Lled\u00f3 Automations. Todos los derechos reservados."}
           </span>
-          <a
-            href="/politica-de-privacidad"
-            style={{ color: colors.textDim, textDecoration: "none", fontSize: 12, transition: "color 0.2s" }}
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = colors.textMuted)}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = colors.textDim)}
-          >
-            Política de privacidad
-          </a>
         </div>
       </Container>
     </footer>
