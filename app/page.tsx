@@ -144,8 +144,8 @@ function Button({ children, variant = "primary", style, onClick }) {
             ? "linear-gradient(135deg, #7C6CF0, #6C5CE7)"
             : "linear-gradient(135deg, #6C5CE7, #5A4BD1)"
           : hovered
-          ? "rgba(255,255,255,0.06)"
-          : "transparent",
+            ? "rgba(255,255,255,0.06)"
+            : "transparent",
         color: isPrimary ? "#fff" : colors.text,
         fontSize: 15,
         fontWeight: 600,
@@ -428,9 +428,11 @@ function Navbar() {
               {l.label}
             </a>
           ))}
-          <Button style={{ padding: "10px 22px", fontSize: 14 }}>
-            Reserva una llamada
-          </Button>
+          <a href="https://wa.me/34687136475?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+            <Button style={{ padding: "10px 22px", fontSize: 14 }}>
+              Reserva una llamada
+            </Button>
+          </a>
         </div>
 
         <button
@@ -550,76 +552,79 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.8 }}
           style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}
         >
-          <Button>
-            Reserva una llamada gratuita <Icon name="arrow" size={16} color="#fff" />
-          </Button>
-          <Button variant="secondary">
-            Ver servicios
-          </Button>
-        </motion.div>
+          <a href="https://wa.me/34687136475?text=Hola%2C%20me%20interesa%20automatizar%20mi%20negocio.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+            <Button>
+              Reserva una llamada gratuita <Icon name="arrow" size={16} color="#fff" />
+            </Button>
+          </a>
+          <a href="#servicios" style={{ textDecoration: "none" }}>
+            <Button variant="secondary">
+              Ver servicios
+            </Button>
+          </a>
 
-        {/* Hero Visual - Animated Dashboard Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.1 }}
-          style={{ marginTop: 80, position: "relative" }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: -2,
-              borderRadius: 24,
-              background: `linear-gradient(135deg, ${colors.accent}, ${colors.green}, ${colors.accent})`,
-              opacity: 0.15,
-              filter: "blur(1px)",
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              borderRadius: 20,
-              border: `1px solid ${colors.glassBorder}`,
-              background: "rgba(12,13,16,0.8)",
-              backdropFilter: "blur(20px)",
-              padding: "24px 32px 32px",
-              overflow: "hidden",
-            }}
+          {/* Hero Visual - Animated Dashboard Preview */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.1 }}
+            style={{ marginTop: 80, position: "relative" }}
           >
-            {/* Window Controls */}
-            <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
-              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F57" }} />
-              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
-              <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
+            <div
+              style={{
+                position: "absolute",
+                inset: -2,
+                borderRadius: 24,
+                background: `linear-gradient(135deg, ${colors.accent}, ${colors.green}, ${colors.accent})`,
+                opacity: 0.15,
+                filter: "blur(1px)",
+              }}
+            />
+            <div
+              style={{
+                position: "relative",
+                borderRadius: 20,
+                border: `1px solid ${colors.glassBorder}`,
+                background: "rgba(12,13,16,0.8)",
+                backdropFilter: "blur(20px)",
+                padding: "24px 32px 32px",
+                overflow: "hidden",
+              }}
+            >
+              {/* Window Controls */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
+                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FF5F57" }} />
+                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#FEBC2E" }} />
+                <div style={{ width: 12, height: 12, borderRadius: "50%", background: "#28C840" }} />
+              </div>
+              {/* Fake Dashboard */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
+                {[
+                  { label: "Leads capturados", value: "2,847", change: "+34%", color: colors.green },
+                  { label: "Tareas automatizadas", value: "12,493", change: "+89%", color: colors.accentLight },
+                  { label: "Horas ahorradas", value: "1,240h", change: "+67%", color: "#F5A623" },
+                  { label: "Ratio conversión", value: "18.4%", change: "+12%", color: "#E74C8B" },
+                ].map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.4 + i * 0.15 }}
+                    style={{
+                      padding: 20,
+                      borderRadius: 12,
+                      background: "rgba(255,255,255,0.03)",
+                      border: `1px solid ${colors.glassBorder}`,
+                    }}
+                  >
+                    <div style={{ fontSize: 12, color: colors.textMuted, marginBottom: 8 }}>{stat.label}</div>
+                    <div style={{ fontSize: 28, fontWeight: 700, color: colors.text, letterSpacing: "-0.02em" }}>{stat.value}</div>
+                    <div style={{ fontSize: 13, color: stat.color, marginTop: 4, fontWeight: 600 }}>{stat.change}</div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-            {/* Fake Dashboard */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
-              {[
-                { label: "Leads capturados", value: "2,847", change: "+34%", color: colors.green },
-                { label: "Tareas automatizadas", value: "12,493", change: "+89%", color: colors.accentLight },
-                { label: "Horas ahorradas", value: "1,240h", change: "+67%", color: "#F5A623" },
-                { label: "Ratio conversión", value: "18.4%", change: "+12%", color: "#E74C8B" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.4 + i * 0.15 }}
-                  style={{
-                    padding: 20,
-                    borderRadius: 12,
-                    background: "rgba(255,255,255,0.03)",
-                    border: `1px solid ${colors.glassBorder}`,
-                  }}
-                >
-                  <div style={{ fontSize: 12, color: colors.textMuted, marginBottom: 8 }}>{stat.label}</div>
-                  <div style={{ fontSize: 28, fontWeight: 700, color: colors.text, letterSpacing: "-0.02em" }}>{stat.value}</div>
-                  <div style={{ fontSize: 13, color: stat.color, marginTop: 4, fontWeight: 600 }}>{stat.change}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
       </Container>
     </section>
   );
@@ -1118,12 +1123,16 @@ function FinalCTA() {
               Reserva una llamada gratuita de 30 minutos. Analizaremos tu negocio y te mostraré exactamente cómo la automatización puede multiplicar tus resultados.
             </p>
             <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-              <Button>
-                Reserva una llamada <Icon name="arrow" size={16} color="#fff" />
-              </Button>
-              <Button variant="secondary">
-                Automatiza tu negocio
-              </Button>
+              <a href="https://wa.me/34687136475?text=Hola%2C%20quiero%20reservar%20una%20llamada%20para%20hablar%20sobre%20automatizaci%C3%B3n." target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <Button>
+                  Reserva una llamada <Icon name="arrow" size={16} color="#fff" />
+                </Button>
+              </a>
+              <a href="https://wa.me/34687136475?text=Hola%2C%20quiero%20automatizar%20mi%20negocio.%20%C2%BFQu%C3%A9%20servicios%20ofrec%C3%A9is%3F" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <Button variant="secondary">
+                  Automatiza tu negocio
+                </Button>
+              </a>
             </div>
           </div>
         </div>
