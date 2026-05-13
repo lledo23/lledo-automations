@@ -22,7 +22,7 @@ const colors = {
 };
 
 // ─── REUSABLE COMPONENTS ───
-function Section({ children, id, className = "" }) {
+function Section({ children, id, className = "" }: { children: React.ReactNode; id?: string; className?: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   return (
@@ -40,7 +40,7 @@ function Section({ children, id, className = "" }) {
   );
 }
 
-function Container({ children, style }) {
+function Container({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
   return (
     <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px", ...style }}>
       {children}
