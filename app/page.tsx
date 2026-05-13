@@ -398,16 +398,7 @@ function Navbar() {
         }}
       >
         <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-          <div
-            style={{
-              width: 32, height: 32,
-              borderRadius: 8,
-              background: `linear-gradient(135deg, ${colors.accent}, ${colors.green})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}
-          >
-            <span style={{ color: "#fff", fontWeight: 800, fontSize: 14 }}>L</span>
-          </div>
+          <img src="/logo.png" alt="Lled\u00f3 Automations" style={{ width: 36, height: 36, borderRadius: 8, objectFit: "cover" }} />
           <span style={{ color: colors.text, fontWeight: 700, fontSize: 16, letterSpacing: "-0.02em" }}>
             Lledó <span style={{ color: colors.textMuted, fontWeight: 400 }}>Automations</span>
           </span>
@@ -936,10 +927,7 @@ function About() {
             >
               <Orb color="rgba(108,92,231,0.3)" size={200} top="10%" left="10%" />
               <Orb color="rgba(0,210,160,0.2)" size={150} top="60%" left="60%" delay={3} />
-              <div style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
-                <div style={{ fontSize: 72, fontWeight: 800, color: colors.text, letterSpacing: "-0.04em", lineHeight: 1 }}>LA</div>
-                <div style={{ fontSize: 13, color: colors.textMuted, marginTop: 8, letterSpacing: 3, textTransform: "uppercase" }}>Lledó Automations</div>
-              </div>
+              <img src="/logo.png" alt="Lled\u00f3 Automations" style={{ position: "relative", zIndex: 2, width: "70%", maxWidth: 280, objectFit: "contain" }} />
             </div>
           </motion.div>
 
@@ -1146,16 +1134,7 @@ function Footer() {
       <Container>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div
-              style={{
-                width: 28, height: 28,
-                borderRadius: 7,
-                background: `linear-gradient(135deg, ${colors.accent}, ${colors.green})`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}
-            >
-              <span style={{ color: "#fff", fontWeight: 800, fontSize: 12 }}>L</span>
-            </div>
+            <img src="/logo.png" alt="Lled\u00f3 Automations" style={{ width: 28, height: 28, borderRadius: 7, objectFit: "cover" }} />
             <span style={{ color: colors.text, fontSize: 15, fontWeight: 600 }}>
               {"Lled\u00f3 Automations"}
             </span>
